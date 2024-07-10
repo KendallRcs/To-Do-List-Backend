@@ -1,8 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const sequelize = require('./config/database');
 const User = require('./models/User');
@@ -13,6 +14,7 @@ sequelize.sync().then(() => {
 });
 
 //Middlewares
+app.use(cors());
 app.use(express.json());
 
 //Routes
