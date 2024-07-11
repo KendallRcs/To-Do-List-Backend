@@ -8,7 +8,7 @@ const createTask = async (req, res) => {
 };
 
 const getTasks = async (req, res) => {
-    const tasks = await Task.findAll({ where: { userId: req.user.id } });
+    const tasks = await Task.findAll({ where: { userId: req.user.id }, order: [['createdAt', 'DESC']] });
 
     res.json(tasks);
 }
