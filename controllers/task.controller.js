@@ -9,8 +9,10 @@ const createTask = async (req, res) => {
 
 const getTasks = async (req, res) => {
     const tasks = await Task.findAll({ where: { userId: req.user.id }, order: [['createdAt', 'DESC']] });
-
-    res.json(tasks);
+    const pendingTasks = tasks.filter(task => task.status === 'Pendiente');
+    const progressTasks = tasks.filter(task => task.status === 'En Progreso');
+    const completedTasks = tasks.filter(task => task.status === 'Completado');
+    res.json({ pendingTasks, progressTasks, completedTasks});
 }
 
 const getTask = async (req, res) => {
